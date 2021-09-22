@@ -27,13 +27,11 @@ const SearchBooks = () => {
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
   const [saveBook] = useMutation(SAVE_BOOK, {
-    // The update method allows us to access and update the local cache
-    update(cache, { data: { saveBook } }) {
+    update(cache, data, saveBook) {
       try {
-        const { me } = cache.readQuery({ query: GET_ME });
+        // const { me } = cache.readQuery({ query: GET_ME });
         cache.writeQuery({
           query: GET_ME,
-          // If we want new data to show up before or after existing data, adjust the order of this array
           data: { me: saveBook },
         });
       } catch (e) {

@@ -24,6 +24,7 @@ const SavedBooks = () => {
       try {
         cache.writeQuery({
           query: GET_ME,
+
           data: { me: removeBook },
         });
       } catch (e) {
