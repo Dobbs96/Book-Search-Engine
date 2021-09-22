@@ -8,8 +8,14 @@ const resolvers = {
     },
   },
   Mutation: {
-    removeBook: async (parent, args) => {
-      return await User.remove(args.bookId);
+    removeBook: async (parent, args, context) => {
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { savedBooks: { bookId: args.bookId } } },
+        { new: true }
+      );
+
+      return updatedUser;
     },
 
     login: async (parent, { email, password }) => {
