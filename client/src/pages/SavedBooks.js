@@ -12,7 +12,7 @@ import { removeBookId } from "../utils/localStorage";
 
 import { GET_ME } from "../utils/queries";
 import { REMOVE_BOOK } from "../utils/mutations";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
