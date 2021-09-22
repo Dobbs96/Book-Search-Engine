@@ -16,8 +16,9 @@ import { useQuery, useMutation } from "@apollo/client";
 
 const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
   const userData = data?.me || [];
+
+  const [removeBook] = useMutation(REMOVE_BOOK);
 
   // use this to determine if `useEffect()` hook needs to run again
   // const userDataLength = Object.keys(userData).length;
@@ -34,6 +35,10 @@ const SavedBooks = () => {
       const { data } = await removeBook({
         variables: { bookId },
       });
+
+      if (!data) {
+        throw new Error("something went wrong!");
+      }
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
